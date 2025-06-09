@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: concesionario
+      POSTGRES_USER: jorge
+      POSTGRES_PASSWORD: jorgepassword
+
+  web:
+    build: .
+    command: gunicorn Concesionario.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=tu_clave_segura
+      - DB_NAME=concesionario
+      - DB_USER=jorge
+      - DB_PASSWORD=jorgepassword
+      - DB_HOST=db
+      - DB_PORT=5432
+
+volumes:
+  postgres_data:

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Vehículo{% endblock %}
+
+{% block content %}
+  <h2>¿Estás seguro de que deseas eliminar este vehículo?</h2>
+
+  <p><strong>{{ object }}</strong></p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+  </form>
+
+  <p><a href="{% url 'vehiculo_list' %}">Cancelar</a></p>
+{% endblock %}

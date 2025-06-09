@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+  <h2>Listado de Reservas</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Vehículo</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reserva in reservas %}
+      <tr>
+        <td>{{ reserva.id }}</td>
+        <td>{{ reserva.vehiculo }}</td>
+        <td>{{ reserva.cliente }}</td>
+        <td>{{ reserva.estado }}</td>
+        <td>
+          <a href="{% url 'reserva_update' reserva.id %}">Editar</a> |
+          <a href="{% url 'reserva_delete' reserva.id %}">Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No hay reservas registradas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p><a href="{% url 'reserva_create' %}">Crear nueva reserva</a></p>
+  <p><a href="{% url 'vehiculo_list' %}">Volver a vehículos</a></p>
+{% endblock %}

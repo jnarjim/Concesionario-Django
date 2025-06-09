@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Listado de Vehículos</h1>
+
+  {% if perms.gestion.add_vehiculo %}
+    <a href="{% url 'vehiculo_create' %}" class="btn btn-primary">Añadir vehículo</a>
+  {% endif %}
+
+  <ul>
+    {% for vehiculo in vehiculos %}
+      <li>
+        {{ vehiculo }}
+
+        {% if perms.gestion.change_vehiculo %}
+          <a href="{% url 'vehiculo_update' vehiculo.id %}">Editar</a>
+        {% endif %}
+
+        {% if perms.gestion.delete_vehiculo %}
+          <a href="{% url 'vehiculo_delete' vehiculo.id %}">Eliminar</a>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>No hay vehículos disponibles.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

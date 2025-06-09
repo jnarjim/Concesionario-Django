@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Pruebas de Conducción{% endblock %}
+
+{% block content %}
+  <h2>Listado de Pruebas de Conducción</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha y hora</th>
+        <th>Vendedor</th>
+        <th>Cliente</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prueba in pruebas %}
+      <tr>
+        <td>{{ prueba.id }}</td>
+        <td>{{ prueba.fecha_hora }}</td>
+        <td>{{ prueba.vendedor }}</td>
+        <td>{{ prueba.cliente }}</td>
+        <td>
+          <a href="{% url 'prueba_update' prueba.id %}">Editar</a> |
+          <a href="{% url 'prueba_delete' prueba.id %}">Eliminar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No hay pruebas registradas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p><a href="{% url 'prueba_create' %}">Solicitar nueva prueba</a></p>
+  <p><a href="{% url 'vehiculo_list' %}">Volver a vehículos</a></p>
+{% endblock %}

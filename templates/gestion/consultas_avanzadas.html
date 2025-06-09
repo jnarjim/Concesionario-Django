@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultas Avanzadas{% endblock %}
+
+{% block content %}
+  <h2>Vehículos filtrados con ganancia estimada</h2>
+  <ul>
+    {% for v in vehiculos_ganancia %}
+      <li>{{ v.marca }} {{ v.modelo }} - Precio: {{ v.precio }} € - Ganancia: {{ v.ganancia }} €</li>
+    {% empty %}
+      <li>No hay vehículos que coincidan</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Total de ventas por vendedor</h2>
+  <ul>
+    {% for venta in ventas_por_vendedor %}
+      <li>{{ venta.vendedor__username }} - Total vendido: {{ venta.total_ventas }} €</li>
+    {% empty %}
+      <li>No hay ventas registradas</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Promedio de días entre reserva y venta</h2>
+  <p>
+    {% if promedio_dias %}
+      {{ promedio_dias.days }} días
+    {% else %}
+      No hay datos suficientes para calcular el promedio.
+    {% endif %}
+  </p>
+
+  <h2>Vehículos más reservados</h2>
+  <ul>
+    {% for v in vehiculos_mas_reservados %}
+      <li>{{ v.marca }} {{ v.modelo }} - Reservas: {{ v.reservas_count }}</li>
+    {% empty %}
+      <li>No hay reservas registradas</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Vehículos más vendidos</h2>
+  <ul>
+    {% for v in vehiculos_mas_vendidos %}
+      <li>{{ v.marca }} {{ v.modelo }} - Ventas: {{ v.ventas_count }}</li>
+    {% empty %}
+      <li>No hay ventas registradas</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

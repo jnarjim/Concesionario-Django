@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulario Vehículo{% endblock %}
+
+{% block content %}
+  <h2>{% if object %}Editar{% else %}Crear{% endif %} Vehículo</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+
+  <p><a href="{% url 'vehiculo_list' %}">Volver al listado</a></p>
+{% endblock %}

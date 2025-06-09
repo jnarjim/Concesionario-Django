@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Concesionario{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Gestión del Concesionario</h1>
+        <nav>
+    <a href="{% url 'vehiculo_list' %}">Vehículos</a> |
+    <a href="{% url 'reserva_list' %}">Reservas</a> |
+    <a href="{% url 'prueba_list' %}">Pruebas</a> |
+    <a href="{% url 'venta_list' %}">Ventas</a> |
+
+    {% if request.user.groups.all.0.name == "Administrador" or request.user.groups.all.0.name == "Vendedor" %}
+        <a href="{% url 'consultas_avanzadas' %}">Consultas Avanzadas</a> |
+    {% endif %}
+
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+</nav>
+
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Concesionario Jorge</p>
+    </footer>
+</body>
+</html>

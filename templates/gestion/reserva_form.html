@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulario Reserva{% endblock %}
+
+{% block content %}
+  <h2>{% if object %}Editar{% else %}Crear{% endif %} Reserva</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+
+  <p><a href="{% url 'reserva_list' %}">Volver al listado</a></p>
+{% endblock %}
